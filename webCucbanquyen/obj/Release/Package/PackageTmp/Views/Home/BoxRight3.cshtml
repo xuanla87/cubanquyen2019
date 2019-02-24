@@ -1,0 +1,20 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.SliderDetail>
+@if (Model != null)
+{
+    <div class="box-banner">
+        <div class="box-content">
+            <div class="box-body">
+                @foreach (var item in Model)
+                {
+                    <div class="item">
+                        <a href="@item.sliderLink">
+                            <img src="@item.detailUrl" alt="" />
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+}
+

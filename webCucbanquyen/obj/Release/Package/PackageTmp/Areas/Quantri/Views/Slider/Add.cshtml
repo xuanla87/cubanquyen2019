@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới Slider";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model CucbanquyenModel.Models.Slider
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.sliderId)
+                    @Html.HiddenFor(x => x.isTrash)
+                    @Html.HiddenFor(x => x.createTime)
+                    @Html.HiddenFor(x => x.updateTime)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.sliderName, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.sliderName, new { @class = "form-control", @placeholder = "Nhập tên.." })
+                                @Html.ValidationMessageFor(x => x.sliderName, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.sliderBody, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.sliderBody, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.sliderBody, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+
+    </script>
+}
+
+
+
+

@@ -1,0 +1,44 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới quyền";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model Microsoft.AspNet.Identity.EntityFramework.IdentityRole
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Name, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.Name, new { @class = "form-control", @placeholder = "Nhập họ tên.." })
+                                @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+
+    </script>
+}
+
+
+
+
+

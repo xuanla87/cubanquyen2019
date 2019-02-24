@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "Quản lý chuyên mục";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 0;
+}
+@model IEnumerable<CucbanquyenModel.Models.Category>
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div>
+                <div class="form-group">
+                    <a class="btn btn-primary" title="Thêm mới" href="@Url.Action("Add")"><i class="fa fa-plus"></i> Thêm mới</a>
+                </div>
+                @if (Model != null)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tên chuyên mục</th>
+                                    <th>Link chuyên mục</th>
+                                    <th>Chuyên mục cha</th>
+                                    <th>Ngôn ngữ</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@item.categoryName</td>
+                                        <td>@item.categoryUrl</td>
+                                        <td>@Html.Action("getName", "Chuyenmuc", new { _id = item.parentId })</td>
+                                        @if (item.languageId == 1)
+                                        {
+                                            <td>Tiếng Việt</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Tiếng Anh</td>
+                                        }
+                                        <td>
+                                            <a class="btn btn-info" href="@Url.Action("Update", new { id = item.categoryId})" title="Cập nhật"><i class="fa fa-edit"></i></a>
+                                            <button type="button" data-id="@item.categoryId" class="btn btn-danger trash-category" title="Hủy"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        $(document).ready(function () {
+            $(".trash-category").click(function () {
+                var x = $(this).attr("data-id");
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("Trash", "Chuyenmuc", new { area = "Quantri"} )",
+                    data: { id: x },
+                    datatype: "json",
+                    success: function (data) {
+                        window.location.reload(true);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

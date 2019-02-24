@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Luật, Văn bản dưới luật";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="col-md-8 luat-van-ban">
+    <div class="title">
+        Luật, Văn bản dưới luật
+        <i class="fa fa-file-pdf-o" style="position:absolute; top:13px; right:25px; color:#de0707; font-size:20px;"></i>
+    </div>
+    <div class="">
+        <div class="box-content">
+            <div class="box-header">
+                <h2 class="title">Luật</h2>
+            </div>
+            <div class="box-body">
+                @Html.Action("Luat")
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <div class="box-content">
+            <div class="box-header">
+                <h2 class="title">Văn bản dưới luật</h2>
+            </div>
+            <div class="box-body">
+                @Html.Action("DocumentType")
+            </div>
+        </div>
+    </div>
+</div>
+

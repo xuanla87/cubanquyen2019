@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewBag.Title = "Hỏi đáp";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int ipage = 1;
+    if (ViewBag.pageIndex != null)
+    {
+        ipage = (int)ViewBag.pageIndex;
+    }
+    int totalPage = 1;
+    if (ViewBag.TotalPage != null)
+    {
+        totalPage = (int)ViewBag.TotalPage;
+    }
+    int firstPaging = ipage - 2;
+    int lastPaging = ipage + 2;
+    firstPaging = firstPaging <= 0 ? 1 : firstPaging;
+    lastPaging = lastPaging - firstPaging < 5 ? firstPaging + 4 : lastPaging;
+    lastPaging = lastPaging >= totalPage ? totalPage : lastPaging;
+    bool? trash = (bool?)ViewBag.Trash;
+    int count = (ipage - 1) * 10;
+}
+@model IEnumerable<CucbanquyenModel.Models.Question>
+<div class="col-md-8">
+    <h1 class="title">@ViewBag.Title</h1>
+    <div class="form-group">
+        <a class="btn btn-primary" href="/dat-cau-hoi"><i class="fa fa-plus"></i> Đặt câu hỏi</a>
+    </div>
+    @using (Html.BeginForm("Index", "QuestionAnswer", FormMethod.Get, new { @id = "question-answer-list" }))
+    {
+        if (Model != null && Model.Count() > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="question-item">
+                    <p>
+                        <b>Độc giả: @item.fullName - @item.address</b>
+                    </p>
+                    <div class="question-date">
+                        - @item.createTime.ToString("dd-MM-yyy")
+                    </div>
+                    <div class="question-body">
+                        @item.questionBody
+                    </div>
+                    @Html.Action("getAnswer", "QuestionAnswer", new { questionId = item.questionId })
+                </div>
+            }
+            if (totalPage > 1)
+            {
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        @if (firstPaging > 1)
+                        {
+                            <li>
+                                <a href="#" aria-label="Previous" onclick="moveToPreviousPage(@ipage, 'question-answer-list')">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        }
+                        @for (int i = firstPaging; i <= lastPaging; i++)
+                        {
+                            var cssClass = "";
+                            if (i == ipage)
+                            {
+                                cssClass = "active";
+                            }
+                            <li class="@cssClass"><a href="#" onclick="moveToPage(@i, 'question-answer-list')">@i</a></li>
+                        }
+                        @if (lastPaging < totalPage)
+                        {
+                            <li>
+                                <a href="#" aria-label="Next" onclick="moveToNextPage(@ipage, 'question-answer-list')">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </nav>
+            }
+            <input type="hidden" name="pageIndex" value="@ipage" class="page-to-move" />
+        }
+    }
+</div>
+

@@ -1,0 +1,78 @@
+﻿@using CucbanquyenModel.Models;
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var vanban = (IEnumerable<Document>)ViewBag.Document;
+    var tintuc = (IEnumerable<Post>)ViewBag.News;
+}
+<div class="col-md-8">
+    <div class="form-group">
+        <b> Kết quả tìm kiếm:</b> @ViewBag.SearchKey
+    </div>
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#News">Tin tức</a></li>
+        <li><a data-toggle="tab" href="#Document">Văn bản</a></li>
+    </ul>
+    <div class="tab-content" style="padding:15px 0px;">
+        <div id="News" class="tab-pane fade in active">
+            @if (tintuc != null)
+            {
+                <div class="box-3">
+                    <div class="box-content">
+                        <div class="box-body">
+                            @foreach (var item in tintuc)
+                            {
+                                <div class="item-cate">
+                                    <div class="thumbnail">
+                                        <a href="@item.postUrl">
+                                            <img src="@item.thumbnail" alt="@item.postName" />
+                                        </a>
+                                    </div>
+                                    <div class="text">
+                                        <h3>
+                                            <a href="@item.postUrl">
+                                                @item.postName
+                                            </a>
+                                        </h3>
+                                        <p>
+                                            @Html.Raw(item.postNote)
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        <div id="Document" class="tab-pane fade">
+            @if (vanban != null)
+            {
+                <div class="box-3">
+                    <div class="box-content">
+                        <div class="box-body">
+                            @foreach (var item in vanban)
+                            {
+                                <div class="item-cate">
+                                    <h3>
+                                        <a href="@item.documentUrl">
+                                            @item.documentName
+                                        </a>
+                                    </h3>
+                                    <p>
+                                        @Html.Raw(item.documentNote)
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,27 @@
+﻿@using CucbanquyenModel.Models
+@model IEnumerable<DocumentType>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="table-responsive">
+        <table class="table vanban">
+            <thead>
+                <tr class="header">
+                    <th>Số/ Ký hiệu</th>
+                    <th>Ngày ban hành</th>
+                    <th>Trích yếu nội dung</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr class="active">
+                        <td colspan="3">@item.documentTypeName</td>
+                    </tr>
+                    @Html.Action("VanBanDuoiLuat", new { typeId = item.documentTypeId })
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+

@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Menu>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="box-5 thutucdk">
+        <div class="box-content">
+            <div class="box-header">
+                <span class="title">
+                    Phí đăng ký
+                </span>
+            </div>
+            <div class="box-body">
+                <ul class="@ViewBag.stclass">
+                    @foreach (var item in Model)
+                    {
+                        <li>
+                            <a href="@item.menuUrl">@item.menuName</a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+   
+}
+
+

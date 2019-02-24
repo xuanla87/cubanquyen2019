@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model CucbanquyenModel.Models.Answer
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.answerId)
+                    @Html.HiddenFor(x => x.userName)
+                    @Html.HiddenFor(x => x.questionId)
+                    @Html.HiddenFor(x => x.createTime)
+                    @Html.HiddenFor(x => x.isTrash)
+                    <div class="form-group">
+                        @Html.Label("Câu hỏi", new { @class = "control-lable" })
+                        "@Model.Question.questionBody"
+                    </div>
+                    <div class="form-group">
+                        @Html.Action("ListAnswer", "Question", new { questionId = Model.questionId })
+                    </div>
+                    <div class="form-group">
+                        @Html.Label("Nội dung", new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.questionBody, new { @class = "form-control", @placeholder = "Nhập..", @rows = "5" })
+                        @Html.ValidationMessageFor(x => x.questionBody, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        var editor = CKEDITOR.replace("questionBody");
+        $(document).ready(function () {
+            $(".trash-answer").click(function () {
+                var x = $(this).attr("data-id");
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("TrashAnswer", "Question", new { area = "Quantri"} )",
+                    data: { id: x },
+                    datatype: "json",
+                    success: function (data) {
+                        window.location.reload(true);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

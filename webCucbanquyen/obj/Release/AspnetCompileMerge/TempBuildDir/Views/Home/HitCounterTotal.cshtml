@@ -1,0 +1,22 @@
+﻿@{
+    string _lable = "Số lượt truy cập";
+}
+@if (ViewBag.LanguageId != null && ViewBag.LanguageId == 2)
+{
+    _lable = "Visit Counter";
+}
+
+
+
+<div class="box-5 hitcounter">
+    <div class="box-content">
+        <div class="box-header">
+            <span class="title">
+                @_lable
+            </span>
+        </div>
+        <div class="box-body">
+            @Html.Raw(ViewBag.TotalHitcounter)
+        </div>
+    </div>
+</div>

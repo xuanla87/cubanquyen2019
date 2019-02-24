@@ -1,0 +1,14 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Category>
+@if (Model != null)
+{
+    <div style="width:100%; float:left;">
+        <ul class="navbar-sub" style="width:100%;">
+            @foreach (var item in Model)
+            {
+                <li>
+                    <a href="@item.categoryUrl" title="@item.categoryName">@item.categoryName</a>
+                </li>
+            }
+        </ul>
+    </div>
+}

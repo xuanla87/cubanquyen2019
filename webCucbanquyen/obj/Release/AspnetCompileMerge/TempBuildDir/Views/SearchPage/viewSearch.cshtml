@@ -1,0 +1,31 @@
+﻿@if (ViewBag.LanguageId != null && ViewBag.LanguageId == 2)
+{
+    using (Html.BeginForm("Index", "SearchPage"))
+    {
+        <div class="search-header">
+            <div class="input-group">
+                <input type="text" name="searchKey" id="searchKey" placeholder="Input keywords.." class="input-search">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-search btn-primary">Search</button>
+                </span>
+            </div>
+        </div>
+    }
+
+}
+else
+{
+    using (Html.BeginForm("Index", "SearchPage"))
+    {
+        <div class="search-header">
+            <div class="input-group">
+                <input type="text" name="searchKey" id="searchKey" placeholder="Từ khóa.." class="input-search">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-search btn-primary">Tìm kiếm</button>
+                </span>
+            </div>
+        </div>
+    }
+
+}
+

@@ -1,0 +1,78 @@
+﻿@{
+    int temp1 = 0;
+    int temp2 = 0;
+}
+@model IEnumerable<CucbanquyenModel.Models.Post>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="box-1">
+        <div class="box-content">
+            <div class="box-header">
+               
+                <div id="NewsCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner">
+                        @foreach (var item in Model)
+                        {
+                            temp1++;
+                            if (temp1 == 1)
+                            {
+                                <div class="item active">
+                                    <a href="@item.postUrl">@item.postName</a>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="item">
+                                    <a href="@item.postUrl">@item.postName</a>
+                                </div>
+                            }
+                        }
+                    </div>
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#NewsCarousel" data-slide="prev">
+                        <i class="fa fa-chevron-circle-left"></i>
+                    </a>
+                    <a class="right carousel-control" href="#NewsCarousel" data-slide="next">
+                        <i class="fa fa-chevron-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="item-first">
+                            <div class="thumbnail">
+                                <a href="@Model.FirstOrDefault().postUrl">
+                                    <img src="@Model.FirstOrDefault().thumbnail" alt="@Model.FirstOrDefault().postName" />
+                                </a>
+                            </div>
+                            <h3 class="title"><a href="@Model.FirstOrDefault().postUrl">@Model.FirstOrDefault().postName</a></h3>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        @foreach (var item in Model)
+                        {
+                            temp2++;
+                            if (temp2 > 1)
+                            {
+
+                                <div class="item">
+                                    <div class="thumbnail">
+                                        <a href="@item.postUrl">
+                                            <img src="@item.thumbnail" alt="@item.postName" />
+                                        </a>
+                                    </div>
+                                    <h4 class="title">
+                                        <a href="@item.postUrl">@item.postName</a>
+                                    </h4>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

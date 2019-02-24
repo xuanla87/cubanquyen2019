@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Thư viện video";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int ipage = 1;
+    if (ViewBag.pageIndex != null)
+    {
+        ipage = (int)ViewBag.pageIndex;
+    }
+    int totalPage = 1;
+    if (ViewBag.TotalPage != null)
+    {
+        totalPage = (int)ViewBag.TotalPage;
+    }
+    int firstPaging = ipage - 2;
+    int lastPaging = ipage + 2;
+    firstPaging = firstPaging <= 0 ? 1 : firstPaging;
+    lastPaging = lastPaging - firstPaging < 5 ? firstPaging + 4 : lastPaging;
+    lastPaging = lastPaging >= totalPage ? totalPage : lastPaging;
+}
+@model IEnumerable<CucbanquyenModel.Models.Video>
+    <div class="col-md-8">
+        @if (Model != null)
+        {
+            <div class="box-3">
+                <div class="box-content">
+                    <div class="box-header">
+                        <h1 class="title">@ViewBag.Title</h1>
+                    </div>
+                    <div class="box-body">
+                        <div class="row">
+                            @foreach (var item in Model)
+                            {
+                                <div class="item col-md-3">
+                                    <a href="/Video/Detail/@item.videoId" class="thumbnail">
+                                        <img src="@item.thumbnail" alt="" />
+                                    </a>
+                                    <h3 class="text-center"><a href="/Video/Detail/@item.videoId">@item.videoTitle</a></h3>
+                                </div>
+                            }
+                        </div>
+                        @if (totalPage > 1)
+                        {
+                            <div class="post_navigation">
+                                <ul>
+                                    @if (firstPaging > 1)
+                                    {
+                                        <li>
+                                            <a href="/video?pageIndex=@(firstPaging-1)">
+                                                Trước
+                                            </a>
+                                        </li>
+                                    }
+                                    @for (int i = firstPaging; i <= lastPaging; i++)
+                                    {
+                                        if (i == ipage)
+                                        {
+                                            <li><span>@i</span></li>
+
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/video?pageIndex=@i">@i</a></li>
+                                        }
+                                    }
+                                    @if (lastPaging < totalPage)
+                                    {
+                                        <li>
+                                            <a href="/video?pageIndex=@(lastPaging-1)">
+                                                Tiếp
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    

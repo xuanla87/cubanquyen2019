@@ -1,0 +1,48 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Post>
+    @{ 
+        string _lable = "Tin đọc nhiều";
+    }
+@if (ViewBag.LanguageId != null && ViewBag.LanguageId == 2)
+{
+    _lable = "Newsletters";
+}
+
+@if (Model != null)
+{
+    <div class="box-5">
+        <div class="box-content">
+            <div class="box-header">
+                <span class="title">
+                   @_lable
+                </span>
+            </div>
+            <div class="box-body read-most">
+                @foreach (var item in Model)
+                {
+                    <div class="item">
+                        <div class="thumbnail">
+                          @if(!string.IsNullOrEmpty(item.thumbnail)){
+                                       <a href="@item.postUrl">
+                                <img src="@item.thumbnail" alt="@item.postName" />
+                                         </a>
+    
+                            }
+                        </div>
+                        <div class="desc">
+                            <h3 class="title">
+                                <a href="@item.postUrl">
+                                    @item.postName
+                                </a>
+                            </h3>
+                            <div class="timer">
+                                <span>@item.createTime.ToString("dd/MM/yyyy")</span> |
+                                <span>@item.postView.ToString("N0") lượt xem</span>
+                                @*<span>0 bình luận</span>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+}

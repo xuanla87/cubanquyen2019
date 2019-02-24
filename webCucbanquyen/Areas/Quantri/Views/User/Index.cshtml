@@ -1,0 +1,69 @@
+﻿@{
+    ViewBag.Title = "Quản lý thành viên";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 0;
+}
+@using webCucbanquyen.Models;
+@model IEnumerable<webCucbanquyen.Models.ApplicationUser>
+<div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div>
+                <div class="form-group">
+                    <a class="btn btn-primary" title="Thêm mới" href="@Url.Action("Add")"><i class="fa fa-plus"></i> Thêm mới</a>
+                </div>
+                @if (Model != null)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Tài khoản</th>
+                                    <th>Email</th>
+                                    <th>Họ tên</th>
+                                    <th>Quyền</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@item.UserName</td>
+                                        <td>@item.Email</td>
+                                        <td>@item.FullName</td>
+                                        @{
+                                            var role = item.Roles.FirstOrDefault();
+                                            ApplicationDbContext db = new ApplicationDbContext();
+                                            if (role != null && role.RoleId != null)
+                                            {
+                                                var rolename = db.Roles.Find(role.RoleId).Name;
+                                                <td>
+                                                    @rolename
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                            }
+
+                                        }
+                                        <td>
+                                            <button type="button" data-id="@item.Id" class="btn btn-danger delete-role" title="Xóa"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                            }
+                            </tbody>
+                        </table>
+                    </div>
+                                            }
+            </div>
+        </div>
+    </div>
+</div>

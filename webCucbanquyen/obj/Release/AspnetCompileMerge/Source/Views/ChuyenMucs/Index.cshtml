@@ -1,0 +1,47 @@
+﻿@using CucbanquyenModel.Models;
+@model CucbanquyenModel.Models.Category
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var tintuc = (IEnumerable<Post>)ViewBag.TinTuc;
+}
+<div class="col-md-8">
+    <div class="box-3">
+        <div class="box-content">
+            <div class="box-header">
+                <h1 class="title text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="box-body">
+                @if (Model != null)
+                {
+                    @Html.Action("subChuyenmuc", "ChuyenMucs", new { id = Model.categoryId })
+                }
+                @if (tintuc != null && tintuc.Count() > 0)
+                {
+                    <h2 class="cate-title">Tin Tức</h2>
+                    foreach (var item in tintuc)
+                    {
+                        <div class="item-cate">
+                            <div class="thumbnail">
+                                <a href="@item.postUrl">
+                                    <img src="@item.thumbnail" alt="@item.postName" />
+                                </a>
+                            </div>
+                            <div class="text">
+                                <h3>
+                                    <a href="@item.postUrl">
+                                        @item.postName
+                                    </a>
+                                </h3>
+                                <p>
+                                    @Html.Raw(item.postNote)
+                                </p>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+</div>
+

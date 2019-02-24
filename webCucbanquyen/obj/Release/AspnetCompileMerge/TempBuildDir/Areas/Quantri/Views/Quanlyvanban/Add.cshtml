@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới văn bản";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+@model CucbanquyenModel.Models.Document
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm("Add", "Quanlyvanban", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.documentId)
+                    @Html.HiddenFor(x => x.createTime)
+                    @Html.HiddenFor(x => x.isTrash)
+                    @Html.HiddenFor(x => x.documentUrl)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.documentName, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.documentName, new { @class = "form-control geturl", @placeholder = "Nhập..", @onchange = "javascript: Changed(this);", @keypress = "javascript: Changed(this);", @keyup = "javascript: Changed(this);" })
+                                @Html.ValidationMessageFor(x => x.documentName, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.issuedTime, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.issuedTime, new { @class = "form-control" ,@type="date", @placeholder = "Chọn.." })
+                                @Html.ValidationMessageFor(x => x.issuedTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.documentNote, new { @class = "control-lable" })
+                                @Html.TextAreaFor(x => x.documentNote, new { @class = "form-control", @placeholder = "Nhập..", @rows = "5" })
+                                @Html.ValidationMessageFor(x => x.documentNote, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.numberCode, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.numberCode, new { @class = "form-control", @placeholder = "Nhập.." })
+                                @Html.ValidationMessageFor(x => x.numberCode, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.categoryId, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.categoryId, null, "---Chuyên mục văn bản---", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.categoryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.documentBody, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.documentBody, new { @class = "form-control", @placeholder = "Nhập..", @rows = "5" })
+                        @Html.ValidationMessageFor(x => x.documentBody, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.documentTypeId, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.documentTypeId, null, "---Loại văn bản---", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.documentTypeId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.languageId, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.languageId, null, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.languageId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.updateTime, new { @class = "form-control datepicker" })
+                                @Html.ValidationMessageFor(x => x.updateTime, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        var editor = CKEDITOR.replace("documentBody");
+        function Changed(textControl) {
+            document.getElementById('documentUrl').value = geturl(textControl.value);
+            textControl.value = textControl.value.replace(/ + /g, " ");
+            textControl.value = textControl.value.replace(/^\ +|\ +$/g, "");
+        }
+    </script>
+}
+
+

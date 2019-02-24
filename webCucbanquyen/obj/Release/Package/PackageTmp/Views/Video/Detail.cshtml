@@ -1,0 +1,24 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model CucbanquyenModel.Models.Video
+    <div class="col-md-8">
+        @if (Model != null)
+        {
+            <div class="box-3">
+                <div class="box-content">
+                    <div class="box-header">
+                        <h1 class="title">@Model.videoTitle</h1>
+                    </div>
+                    <div class="box-body">
+                        <video controls poster="@Model.thumbnail" controlsList="nodownload">
+                            <source src="/FileVideo/@Model.videoBody">
+                        </video>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    
+

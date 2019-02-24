@@ -1,0 +1,22 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Answer>
+@if (Model != null && Model.Count() > 0)
+{
+    @Html.Label("Câu trả lời", new { @class = "control-lable" })
+    <div class="table-responsive">
+        <table class="table table-bordered">
+            @foreach (var item in Model)
+            {
+                <tr class="answer-item">
+                    <td>
+                        @Html.Raw(item.questionBody)
+                    </td>
+                    <td width="120">
+                        <a class="btn btn-warning" href="@Url.Action("AnswerQuestion", new {id=item.answerId ,  questionId = item.questionId})" title="Sửa câu trả lời"><i class="fa fa-edit"></i></a>
+                        <button type="button" data-id="@item.answerId" class="btn btn-danger trash-answer" title="Hủy"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+
+}

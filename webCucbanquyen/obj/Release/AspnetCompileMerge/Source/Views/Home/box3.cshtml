@@ -1,0 +1,56 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Post>
+@{
+    int temp = 0;
+    int temp1 = 0;
+}
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="box-9">
+        <div class="box-content">
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        @foreach (var item in Model)
+                        {
+                            temp1++;
+                            if (temp1 == 1)
+                            {
+                                <div class="item-first">
+                                    <div class="thumbnail">
+                                        <a href="@item.postUrl">
+                                            <img src="@item.thumbnail" alt="@item.postName" />
+                                        </a>
+                                    </div>
+                                    <h3 class="title"><a href="@item.postUrl">@item.postName</a></h3>
+                                </div>
+                            }
+                        }
+
+                    </div>
+                    <div class="col-md-6">
+                        <div class="title">
+                            <span><a href="@ViewBag.Url" title="@ViewBag.Name">@ViewBag.Name</a></span>
+                        </div>
+                        @foreach (var item in Model)
+                        {
+                            temp++;
+                            if (temp > 1)
+                            {
+                                <div class="item">
+                                    <div class="thumbnail">
+                                        <a href="@item.postUrl">
+                                            <img src="@item.thumbnail" alt="@item.postName" />
+                                        </a>
+                                    </div>
+                                    <h4 class="title">
+                                        <a href="@item.postUrl">@item.postName</a>
+                                    </h4>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

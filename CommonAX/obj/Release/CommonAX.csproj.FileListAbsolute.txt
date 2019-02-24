@@ -1,0 +1,12 @@
+E:\Cucbanquyen\Cbanquyen\CommonAX\bin\Release\CommonAX.dll
+E:\Cucbanquyen\Cbanquyen\CommonAX\bin\Release\CommonAX.pdb
+E:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.csproj.CoreCompileInputs.cache
+E:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.dll
+E:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.pdb
+E:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.csprojResolveAssemblyReference.cache
+D:\Cucbanquyen\Cbanquyen\CommonAX\bin\Release\CommonAX.dll
+D:\Cucbanquyen\Cbanquyen\CommonAX\bin\Release\CommonAX.pdb
+D:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.csprojAssemblyReference.cache
+D:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.csproj.CoreCompileInputs.cache
+D:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.dll
+D:\Cucbanquyen\Cbanquyen\CommonAX\obj\Release\CommonAX.pdb

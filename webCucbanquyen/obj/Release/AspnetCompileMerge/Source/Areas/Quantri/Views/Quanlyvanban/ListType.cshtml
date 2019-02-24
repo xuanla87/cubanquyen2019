@@ -1,0 +1,78 @@
+﻿
+@{
+    ViewBag.Title = "Danh sách loại văn bản";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 0;
+}
+@model IEnumerable<CucbanquyenModel.Models.DocumentType>
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div>
+                <div class="form-group">
+                    <a class="btn btn-primary" title="Thêm mới" href="@Url.Action("AddType")"><i class="fa fa-plus"></i> Thêm mới</a>
+                    <a class="btn btn-danger" title="Thêm mới văn bản" href="@Url.Action("Add")"><i class="fa fa-plus"></i> Thêm mới văn bản</a>
+                </div>
+                @if (Model != null)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Loại văn bản</th>
+                                    <th>Ngôn ngữ</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@item.documentTypeName</td>
+                                        @if (item.languageId == 1)
+                                        {
+                                            <td>Tiếng Việt</td>
+                                        }
+                                        else
+                                        {
+                                            <td>Tiếng Anh</td>
+                                        }
+                                        <td>
+                                            <a title="sửa" class="btn btn-warning" href="@Url.Action("AddType", new { id= item.documentTypeId})"><i class="fa fa-edit"></i></a>
+                                            <button type="button" data-id="@item.documentTypeId" class="btn btn-danger trash-document-type" title="Hủy"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        $(document).ready(function () {
+            $(".trash-document-type").click(function () {
+                var x = $(this).attr("data-id");
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("Delete", "Quanlyvanban", new { area = "Quantri"} )",
+                    data: { id: x },
+                    datatype: "json",
+                    success: function (data) {
+                        window.location.reload(true);
+                    }
+                });
+            });
+        });
+    </script>
+}
+

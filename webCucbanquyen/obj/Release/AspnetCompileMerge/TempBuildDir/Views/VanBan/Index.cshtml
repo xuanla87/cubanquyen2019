@@ -1,0 +1,23 @@
+﻿@using CucbanquyenModel.Models
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var detail = (Document)ViewBag.Detail;
+}
+    <div class="col-md-8">
+        @if (detail != null)
+        {
+            <div class="box-3">
+                <div class="box-content" style="border-radius:10px; padding: 15px;  border: 2px solid #eee; box-shadow: 5px 0px 10px 1px #efefef;">
+                    <div class="box-header">
+                        <h1 class="title">@detail.documentName</h1>
+                    </div>
+                    <i class="fa fa-file-pdf-o" style="position:absolute; top:13px; right:25px; color:#de0707; font-size:20px;"></i>
+                    <div class="box-body">
+                        @Html.Raw(detail.documentBody)
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+

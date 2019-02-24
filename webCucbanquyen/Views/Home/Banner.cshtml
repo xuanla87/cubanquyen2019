@@ -1,0 +1,8 @@
+﻿@model CucbanquyenModel.Models.ConfigSystem
+
+@if (Model != null && !string.IsNullOrEmpty(Model.configBody))
+{
+    <header class="banner">
+        @Html.Raw(Model.configBody)
+    </header>
+}

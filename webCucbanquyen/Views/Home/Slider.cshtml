@@ -1,0 +1,26 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.SliderDetail>
+@if (Model != null)
+{
+    int count = 0;
+    foreach (var item in Model)
+    {
+        count++;
+        if (count == 1)
+        {
+            <div class="item active">
+               
+                <a href="@item.sliderLink">
+                    <img src="@item.detailUrl" alt="" />
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="item">
+                <a href="@item.sliderLink">
+                    <img src="@item.detailUrl" alt="" />
+                </a>
+            </div>
+        }
+    }
+}

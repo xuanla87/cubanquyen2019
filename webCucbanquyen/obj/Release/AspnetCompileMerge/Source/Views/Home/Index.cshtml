@@ -1,0 +1,29 @@
+﻿<div class="col-md-8">
+    @Html.Action("box1", "Home")
+
+    @Html.Action("box2", "Home")
+   
+    @Html.Action("box3", "Home")
+
+    @Html.Action("box4", "Home")
+
+    @Html.Action("boxVideo")
+    <div class="box-5">
+        <div class="box-content">
+            <div class="box-header">
+                <span class="title">
+                    @Html.Raw(ViewBag.Title2)
+                </span>
+            </div>
+            <div class="box-body">
+
+                <div class="myCarousel-video-slider">
+                    <div class="myCarousel-slider owl-carousel owl-theme">
+                        @Html.Action("Slider", "Home", new { id = 1 })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

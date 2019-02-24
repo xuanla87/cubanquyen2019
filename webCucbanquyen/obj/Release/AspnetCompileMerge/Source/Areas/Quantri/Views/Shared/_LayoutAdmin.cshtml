@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Cục Bản Quyền</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/themes/base/jquery-ui.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse ">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="@ViewBag.Quanlybaiviet"><a href="@Url.Action("Index","Quanlybaiviet")">QL bài viết</a></li>
+                    <li class="@ViewBag.Quanlyvanban"><a href="@Url.Action("Index","Quanlyvanban")">QL văn bản</a></li>
+                    <li class="@ViewBag.Chuyenmuc"><a href="@Url.Action("Index","Chuyenmuc")">QL chuyên mục</a></li>
+                    <li class="@ViewBag.Quanlyvideo"><a href="@Url.Action("Index","Quanlyvideo")">QL video</a></li>
+                    <li class="@ViewBag.Quanlycauhoi"><a href="@Url.Action("Index","Question")">QL câu hỏi</a></li>
+                    @if (User.IsInRole("Manager"))
+                    {
+                        <li class="@ViewBag.Menu"><a href="@Url.Action("Index","Menu")">QL menu</a></li>
+                        <li class="@ViewBag.Slider"><a href="@Url.Action("Index","Slider")">QL Slider</a></li>
+                    }
+                    else if (User.IsInRole("Administrator"))
+                    {
+                        <li class="@ViewBag.Menu"><a href="@Url.Action("Index","Menu")">QL Menu</a></li>
+                        <li class="@ViewBag.Slider"><a href="@Url.Action("Index","Slider")">QL Slider</a></li>
+                        <li class="@ViewBag.User"><a href="@Url.Action("Index","User")">Thành viên</a></li>
+                        <li class="@ViewBag.Caidathethong"><a href="@Url.Action("Index","Caidathethong")">Cài đặt</a></li>
+                    }
+                </ul>
+                @Html.Partial("_LoginPartial")
+            </div>
+        </div>
+    </div>
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="~/Scripts/ckeditor/ckeditor.js"></script>
+    <script src="~/Content/ckfinder/ckfinder.js"></script>
+    <script src="~/Scripts/JavaScriptAdmin.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+    @RenderSection("scriptsA", required: false)
+    <script>
+        $(function () {
+            $.datepicker.regional["vi-VN"] =
+                {
+                    closeText: "Đóng",
+                    prevText: "Trước",
+                    nextText: "Sau",
+                    currentText: "Hôm nay",
+                    monthNames: ["Tháng một", "Tháng hai", "Tháng ba", "Tháng tư", "Tháng năm", "Tháng sáu", "Tháng bảy", "Tháng tám", "Tháng chín", "Tháng mười", "Tháng mười một", "Tháng mười hai"],
+                    monthNamesShort: ["Một", "Hai", "Ba", "Bốn", "Năm", "Sáu", "Bảy", "Tám", "Chín", "Mười", "Mười một", "Mười hai"],
+                    dayNames: ["Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"],
+                    dayNamesShort: ["CN", "Hai", "Ba", "Tư", "Năm", "Sáu", "Bảy"],
+                    dayNamesMin: ["CN", "T2", "T3", "T4", "T5", "T6", "T7"],
+                    weekHeader: "Tuần",
+                    dateFormat: "dd/mm/yy",
+                    firstDay: 1,
+                    isRTL: false,
+                    showMonthAfterYear: false,
+                    yearSuffix: ""
+                };
+
+            $.datepicker.setDefaults($.datepicker.regional["vi-VN"]);
+            $(".datepicker").datepicker();
+        });
+    </script>
+</body>
+</html>

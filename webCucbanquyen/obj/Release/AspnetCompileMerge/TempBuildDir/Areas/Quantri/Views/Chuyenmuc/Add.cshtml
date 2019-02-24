@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewBag.Title = "Thêm mới chuyên mục";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model CucbanquyenModel.Models.Category
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.categoryUrl)
+                    @Html.HiddenFor(x => x.isTrash)
+                    @Html.HiddenFor(x => x.categoryId)
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.categoryName, new { @class = "control-lable" })
+                        @Html.TextBoxFor(x => x.categoryName, new { @class = "form-control geturl", @placeholder = "Nhập tên danh mục..", @onchange = "javascript: Changed(this);" })
+                        @Html.ValidationMessageFor(x => x.categoryName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.parentId, new { @class = "control-lable" })
+                        @Html.DropDownListFor(x => x.parentId, null, "--Chọn chuyên mục cha--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.parentId, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.categoryNote, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.categoryNote, new { @class = "form-control", @rows = "5" })
+                        @Html.ValidationMessageFor(x => x.categoryNote, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.sortOrder, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.sortOrder, new { @class = "form-control number", @type = "number" })
+                                @Html.ValidationMessageFor(x => x.sortOrder, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.languageId, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.languageId, null, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.languageId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        function Changed(textControl) {
+            document.getElementById('categoryUrl').value = geturl(textControl.value);
+            textControl.value = textControl.value.replace(/ + /g, " ");
+            textControl.value = textControl.value.replace(/^\ +|\ +$/g, "");
+        }
+    </script>
+}
+

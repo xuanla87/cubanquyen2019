@@ -1,0 +1,34 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Post>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="box-2">
+        <div class="box-content">
+            <div class="box-header">
+                <span class="title"><a href="@ViewBag.Url">@ViewBag.Name</a></span>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    @foreach (var item in Model)
+                    {
+                        <div class="col-md-3">
+                            <div class="item">
+                                <div class="thumbnail">
+                                    <a href="@item.postUrl">
+                                        <img src="@item.thumbnail" alt="@item.postName" />
+                                    </a>
+                                </div>
+                                <h4 class="title">
+                                    <a href="@item.postUrl">@item.postName</a>
+                                </h4>
+                                <div class="timer">
+                                    @item.updateTime.ToString("dd/MM/yyyy")
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

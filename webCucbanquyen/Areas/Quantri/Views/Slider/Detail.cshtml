@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewBag.Title = "Chi tiết Slider";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+    int count = 0;
+}
+@model IEnumerable<CucbanquyenModel.Models.SliderDetail>
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title: @ViewBag.SliderName</h1>
+            </div>
+            <div>
+                <div class="form-group">
+                    <a class="btn btn-primary" title="Thêm mới" href="@Url.Action("AddDetail", new { Id = ViewBag.SliderId})"><i class="fa fa-plus"></i> Thêm mới</a>
+                </div>
+                @if (Model != null)
+                {
+                    <div class="table-responsive">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Url</th>
+                                    <th>Slider cha</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>
+                                            @item.detailUrl
+                                        </td>
+                                        <td>
+                                            @item.Slider.sliderName
+                                        </td>
+                                        <td>
+                                            <button type="button" data-id="@item.detailId" class="btn btn-danger trash-detail-slider" title="Hủy"><i class="fa fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        $(document).ready(function () {
+            $(".trash-detail-slider").click(function () {
+                var x = $(this).attr("data-id");
+                $.ajax({
+                    type: "GET",
+                    url: "@Url.Action("Delete", "Slider", new { area = "Quantri"} )",
+                    data: { id: x },
+                    datatype: "json",
+                    success: function (data) {
+                        window.location.reload(true);
+                    }
+                });
+            });
+        });
+    </script>
+}
+
+

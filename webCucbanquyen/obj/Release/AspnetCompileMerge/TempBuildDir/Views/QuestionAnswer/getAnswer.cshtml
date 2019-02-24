@@ -1,0 +1,13 @@
+﻿@model IEnumerable<CucbanquyenModel.Models.Answer>
+@if (Model != null && Model.Count() > 0)
+{
+    <div class="question-answer">
+       <b>Trả lời:</b> 
+        @foreach (var item in Model)
+        {
+            <div class="answer-body">
+                @Html.Raw(item.questionBody)
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,135 @@
+﻿@{
+    ViewBag.Title = "Cài đặt hệ thống";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model webCucbanquyen.Areas.Quantri.Models.SettingModel
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <ul class="nav nav-tabs">
+                <li class="active"><a>Tiếng Việt</a></li>
+                <li><a href="@Url.Action("SetEng","Caidathethong")">Tiếng Anh</a></li>
+            </ul>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Box1, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.Box1, null, "--Chọn chuyên mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Box1, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Box2, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.Box2, null, "--Chọn chuyên mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Box2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.Box3, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.Box3, null, "--Chọn chuyên mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.Box3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.GioiThieuTacPham, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.GioiThieuTacPham, null, "--Chọn Slider --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.GioiThieuTacPham, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.MainMenu, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.MainMenu, null, "--Chọn danh mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.MainMenu, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.RightMenu, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.RightMenu, null, "--Chọn danh mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.RightMenu, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.LienKetWebsite, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.LienKetWebsite, null, "--Chọn danh mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.LienKetWebsite, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.BoxRight3, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.BoxRight3, null, "--Chọn Slider --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.BoxRight3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.RightMenu2, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.RightMenu2, null, "--Chọn danh mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.RightMenu2, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.RightMenu3, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.RightMenu3, null, "--Chọn danh mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.RightMenu3, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.RightMenu4, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.RightMenu4, null, "--Chọn danh mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.RightMenu4, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.BoxRight4, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.BoxRight4, new { @class = "form-control", @placeholder = "Nhập link thông báo" })
+                                @Html.ValidationMessageFor(x => x.BoxRight4, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Banner, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.Banner, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Banner, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Footer, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.Footer, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Footer, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        var editor = CKEDITOR.replace("Footer");
+        var editor1 = CKEDITOR.replace("Banner");
+    </script>
+}
+

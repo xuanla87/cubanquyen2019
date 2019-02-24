@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "Thêm chi tiết Slider";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model CucbanquyenModel.Models.SliderDetail
+<div class="">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.sliderId)
+                    @Html.HiddenFor(x => x.sliderType)
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.sliderTitle, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.sliderTitle, new { @class = "form-control", @placeholder = "Nhập tiêu đề.." })
+                                @Html.ValidationMessageFor(x => x.sliderTitle, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.detailUrl, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.detailUrl, new { @class = "form-control", @placeholder = "Chọn hình.." })
+                                @Html.ValidationMessageFor(x => x.detailUrl, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.sliderLink, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.sliderLink, new { @class = "form-control", @placeholder = "Nhập link.." })
+                                @Html.ValidationMessageFor(x => x.sliderLink, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.sliderNote, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.sliderNote, new { @class = "form-control", @placeholder = "Nhập ghi chú.." })
+                                @Html.ValidationMessageFor(x => x.sliderNote, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+
+    </script>
+}
+
+
+
+
+
+
+
+

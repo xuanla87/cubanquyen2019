@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewBag.Title = "Cập nhật bài viết";
+    Layout = "~/Areas/Quantri/Views/Shared/_LayoutAdmin.cshtml";
+}
+@model CucbanquyenModel.Models.Post
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-header">
+                <h1 class="text-uppercase">@ViewBag.Title</h1>
+            </div>
+            <div class="">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary("", new { @class = "text-danger" })
+                    @Html.HiddenFor(x => x.postUrl)
+                    @Html.HiddenFor(x => x.isTrash)
+                    @Html.HiddenFor(x => x.postId)
+                    @Html.HiddenFor(x => x.createBy)
+                    @Html.HiddenFor(x => x.createTime)
+                    @Html.HiddenFor(x => x.postView)
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.postName, new { @class = "control-lable" })
+                        @Html.TextBoxFor(x => x.postName, new { @class = "form-control geturl", @placeholder = "Nhập tiêu đề..", @onchange = "javascript: Changed(this);", @keypress = "javascript: Changed(this);", @keyup = "javascript: Changed(this);" })
+                        @Html.ValidationMessageFor(x => x.postName, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.thumbnail, new { @class = "control-lable" })
+                                @Html.TextBoxFor(x => x.thumbnail, new { @class = "form-control", @placeholder = "Chọn ảnh.." })
+                                @Html.ValidationMessageFor(x => x.thumbnail, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                @Html.LabelFor(x => x.categoryId, new { @class = "control-lable" })
+                                @Html.DropDownListFor(x => x.categoryId, null, "--Chọn chuyên mục --", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.categoryId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.postNote, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.postNote, new { @class = "form-control", @rows = "5" })
+                        @Html.ValidationMessageFor(x => x.postNote, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.postBody, new { @class = "control-lable" })
+                        @Html.TextAreaFor(x => x.postBody, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.postBody, "", new { @class = "text-danger" })
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="checkbox-inline">
+                                    @Html.CheckBoxFor(x => x.hotFlag)
+                                    Hot
+                                </label>
+                                @Html.ValidationMessageFor(x => x.hotFlag, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label class="checkbox-inline">
+                                    @Html.CheckBoxFor(x => x.newFlag)
+                                    New
+                                </label>
+                                @Html.ValidationMessageFor(x => x.newFlag, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.DropDownListFor(x => x.languageId, null, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(x => x.languageId, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                @Html.TextBoxFor(x => x.updateTime, new { @class = "form-control datepicker", @placeholder = "Ngày viết"})
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Lưu dữ liệu</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scriptsA {
+    <script>
+        var editor = CKEDITOR.replace("postBody");
+        function Changed(textControl) {
+            document.getElementById('postUrl').value = geturl(textControl.value);
+            textControl.value = textControl.value.replace(/ + /g, " ");
+            textControl.value = textControl.value.replace(/^\ +|\ +$/g, "");
+        }
+    </script>
+}
+
+
+
+
