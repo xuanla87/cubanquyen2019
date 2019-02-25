@@ -1,37 +1,35 @@
-﻿using System;
+﻿using CucbanquyenModel.Models;
+using CucbanquyenService;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using CucbanquyenModel.Models;
-using CucbanquyenService;
-using webCucbanquyen.Areas.Quantri.Models;
-using System.Web.UI;
 using webCucbanquyen.Models;
 
 namespace webCucbanquyen.Controllers
 {
     public class HomeController : Controller
     {
-        IVideoService _Service;
-        ICategoryService _categoryService;
-        IDocumentTypeService _documentTypeService;
-        IMenuService _menuService;
-        IPostService _postService;
-        ISliderService _sliderService;
-        IDetailSilderService _detailSilderService;
-        IConfigSystemService _configService;
-        HttpCookie languagecode;
+        private IVideoService _Service;
+        private ICategoryService _categoryService;
+        private readonly IDocumentTypeService _documentTypeService;
+        private IMenuService _menuService;
+        private IPostService _postService;
+        private readonly ISliderService _sliderService;
+        private IDetailSilderService _detailSilderService;
+        private IConfigSystemService _configService;
+        private HttpCookie languagecode;
         public HomeController(IVideoService service, IConfigSystemService configService, IDetailSilderService detailSilderService, ISliderService sliderService, IPostService postService, IMenuService menuService, ICategoryService categoryService, IDocumentTypeService documentTypeService)
         {
-            this._categoryService = categoryService;
-            this._Service = service;
-            this._documentTypeService = documentTypeService;
-            this._menuService = menuService;
-            this._postService = postService;
-            this._sliderService = sliderService;
-            this._detailSilderService = detailSilderService;
-            this._configService = configService;
+            _categoryService = categoryService;
+            _Service = service;
+            _documentTypeService = documentTypeService;
+            _menuService = menuService;
+            _postService = postService;
+            _sliderService = sliderService;
+            _detailSilderService = detailSilderService;
+            _configService = configService;
 
         }
 
@@ -44,13 +42,13 @@ namespace webCucbanquyen.Controllers
                 ViewBag.Title = "Home";
                 ViewBag.Title2 = "Introducing the work";
             }
-               
+
             else
             {
                 ViewBag.Title2 = "Giới thiệu tác phẩm";
                 ViewBag.Title = "Trang chủ";
             }
-               
+
             return View();
         }
 
@@ -59,12 +57,12 @@ namespace webCucbanquyen.Controllers
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
             {
-                var result = _Service.GetAll().Where(x => x.isTrash == false && x.languageId == 2).Take(20);
+                IEnumerable<Video> result = _Service.GetAll().Where(x => x.isTrash == false && x.languageId == 2).Take(20);
                 return PartialView(result);
             }
             else
             {
-                var result = _Service.GetAll().Where(x => x.isTrash == false && x.languageId == 1).Take(20);
+                IEnumerable<Video> result = _Service.GetAll().Where(x => x.isTrash == false && x.languageId == 1).Take(20);
                 return PartialView(result);
             }
         }
@@ -78,7 +76,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("MainMenuen").configBody); } catch { id = null; }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -94,7 +92,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("MainMenu").configBody); } catch { id = null; }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -115,7 +113,7 @@ namespace webCucbanquyen.Controllers
             {
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -129,7 +127,7 @@ namespace webCucbanquyen.Controllers
             {
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -153,7 +151,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenuen").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -170,7 +168,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -193,7 +191,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("LienKetWebsiteen").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -210,7 +208,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("LienKetWebsite").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -228,12 +226,12 @@ namespace webCucbanquyen.Controllers
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
             {
-                var result = _postService.GetAll().Where(x => x.newFlag == true && x.isTrash == false && x.languageId == 2).OrderByDescending(x => x.updateTime).Take(5);
+                IEnumerable<Post> result = _postService.GetAll().Where(x => x.newFlag == true && x.isTrash == false && x.languageId == 2).OrderByDescending(x => x.updateTime).Take(5);
                 return PartialView(result);
             }
             else
             {
-                var result = _postService.GetAll().Where(x => x.newFlag == true && x.isTrash == false && x.languageId == 1).OrderByDescending(x => x.updateTime).Take(5);
+                IEnumerable<Post> result = _postService.GetAll().Where(x => x.newFlag == true && x.isTrash == false && x.languageId == 1).OrderByDescending(x => x.updateTime).Take(5);
                 return PartialView(result);
             }
         }
@@ -247,10 +245,10 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("Box1en").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var chuyenmuc = _categoryService.GetById(id.Value);
+                    Category chuyenmuc = _categoryService.GetById(id.Value);
                     ViewBag.Name = chuyenmuc?.categoryName ?? null;
                     ViewBag.Url = chuyenmuc?.categoryUrl ?? null;
-                    var result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == 2).OrderByDescending(x => x.updateTime).Take(4);
+                    IEnumerable<Post> result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == 2).OrderByDescending(x => x.updateTime).Take(4);
                     return PartialView(result);
                 }
                 else
@@ -264,10 +262,10 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("Box1").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var chuyenmuc = _categoryService.GetById(id.Value);
+                    Category chuyenmuc = _categoryService.GetById(id.Value);
                     ViewBag.Name = chuyenmuc?.categoryName ?? null;
                     ViewBag.Url = chuyenmuc?.categoryUrl ?? null;
-                    var result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == 1).OrderByDescending(x => x.updateTime).Take(4);
+                    IEnumerable<Post> result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == 1).OrderByDescending(x => x.updateTime).Take(4);
                     return PartialView(result);
                 }
                 else
@@ -289,13 +287,16 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("Box2en").configBody); } catch { }
             }
             else
+            {
                 try { id = Convert.ToInt16(_configService.GetByName("Box2").configBody); } catch { }
+            }
+
             if (id.HasValue)
             {
-                var chuyenmuc = _categoryService.GetById(id.Value);
+                Category chuyenmuc = _categoryService.GetById(id.Value);
                 ViewBag.Name = chuyenmuc?.categoryName ?? null;
                 ViewBag.Url = chuyenmuc?.categoryUrl ?? null;
-                var result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == languageId).OrderByDescending(x => x.updateTime).Take(6);
+                IEnumerable<Post> result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == languageId).OrderByDescending(x => x.updateTime).Take(6);
                 return PartialView(result);
             }
             else
@@ -315,13 +316,16 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("Box3en").configBody); } catch { }
             }
             else
+            {
                 try { id = Convert.ToInt16(_configService.GetByName("Box3").configBody); } catch { }
+            }
+
             if (id.HasValue)
             {
-                var chuyenmuc = _categoryService.GetById(id.Value);
+                Category chuyenmuc = _categoryService.GetById(id.Value);
                 ViewBag.Name = chuyenmuc?.categoryName ?? null;
                 ViewBag.Url = chuyenmuc?.categoryUrl ?? null;
-                var result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == languageId).OrderByDescending(x => x.updateTime).Take(6);
+                IEnumerable<Post> result = _postService.GetAll().Where(x => x.categoryId == id && x.isTrash == false && x.languageId == languageId).OrderByDescending(x => x.updateTime).Take(6);
                 return PartialView(result);
             }
             else
@@ -335,8 +339,11 @@ namespace webCucbanquyen.Controllers
             languagecode = HttpContext.Request.Cookies["languagecode"];
             int languageId = 1;
             if (languagecode != null && languagecode.Value == "en")
+            {
                 languageId = 2;
-            var result = _postService.GetAll().Where(x => x.isTrash == false && x.languageId == languageId).OrderByDescending(x => x.postView).Take(5);
+            }
+
+            IEnumerable<Post> result = _postService.GetAll().Where(x => x.isTrash == false && x.languageId == languageId).OrderByDescending(x => x.postView).Take(5);
             ViewBag.LanguageId = languageId;
             return PartialView(result);
         }
@@ -350,12 +357,12 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("GioiThieuTacPhamen").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _detailSilderService.GetAllBySliderId(id.Value);
+                    IEnumerable<SliderDetail> result = _detailSilderService.GetAllBySliderId(id.Value);
                     return PartialView(result);
                 }
                 else
                 {
-                    var result = new List<SliderDetail>();
+                    List<SliderDetail> result = new List<SliderDetail>();
                     return PartialView(result);
                 }
             }
@@ -365,12 +372,12 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("GioiThieuTacPham").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _detailSilderService.GetAllBySliderId(id.Value);
+                    IEnumerable<SliderDetail> result = _detailSilderService.GetAllBySliderId(id.Value);
                     return PartialView(result);
                 }
                 else
                 {
-                    var result = new List<SliderDetail>();
+                    List<SliderDetail> result = new List<SliderDetail>();
                     return PartialView(result);
                 }
             }
@@ -386,12 +393,12 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("BoxRight3en").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _detailSilderService.GetAllBySliderId(id.Value);
+                    IEnumerable<SliderDetail> result = _detailSilderService.GetAllBySliderId(id.Value);
                     return PartialView(result);
                 }
                 else
                 {
-                    var result = new List<SliderDetail>();
+                    List<SliderDetail> result = new List<SliderDetail>();
                     return PartialView(result);
                 }
             }
@@ -401,12 +408,12 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("BoxRight3").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _detailSilderService.GetAllBySliderId(id.Value);
+                    IEnumerable<SliderDetail> result = _detailSilderService.GetAllBySliderId(id.Value);
                     return PartialView(result);
                 }
                 else
                 {
-                    var result = new List<SliderDetail>();
+                    List<SliderDetail> result = new List<SliderDetail>();
                     return PartialView(result);
                 }
             }
@@ -418,12 +425,12 @@ namespace webCucbanquyen.Controllers
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
             {
-                var result = _configService.GetByName("BoxRight4en")?.configBody ?? null;
+                string result = _configService.GetByName("BoxRight4en")?.configBody ?? null;
                 ViewBag.Link4 = result;
             }
             else
             {
-                var result = _configService.GetByName("BoxRight4")?.configBody ?? null;
+                string result = _configService.GetByName("BoxRight4")?.configBody ?? null;
                 ViewBag.Link4 = result;
             }
             return PartialView();
@@ -434,12 +441,12 @@ namespace webCucbanquyen.Controllers
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
             {
-                var result = _configService.GetByName("Footeren")?.configBody ?? null;
+                string result = _configService.GetByName("Footeren")?.configBody ?? null;
                 ViewBag.Footer = result ?? null;
             }
             else
             {
-                var result = _configService.GetByName("Footer")?.configBody ?? null;
+                string result = _configService.GetByName("Footer")?.configBody ?? null;
                 ViewBag.Footer = result ?? null;
             }
             return PartialView();
@@ -450,12 +457,12 @@ namespace webCucbanquyen.Controllers
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
             {
-                var result = _configService.GetByName("Banneren");
+                ConfigSystem result = _configService.GetByName("Banneren");
                 return PartialView(result);
             }
             else
             {
-                var result = _configService.GetByName("Banner");
+                ConfigSystem result = _configService.GetByName("Banner");
                 return PartialView(result);
             }
         }
@@ -463,27 +470,54 @@ namespace webCucbanquyen.Controllers
         public ActionResult HitCounterTotal()
         {
             HitCounterEntity db = new HitCounterEntity();
-            var result = db.Visiters.ToList();
+            List<Visiter> result = db.Visiters.ToList();
 
             string hit = "000000000";
             if (result.Count < 1000000000 && result.Count >= 100000000)
+            {
                 hit = result.Count.ToString();
+            }
+
             if (result.Count < 100000000 && result.Count >= 10000000)
+            {
                 hit = "0" + result.Count.ToString();
+            }
+
             if (result.Count < 10000000 && result.Count >= 1000000)
+            {
                 hit = "00" + result.Count.ToString();
+            }
+
             if (result.Count < 1000000 && result.Count >= 100000)
+            {
                 hit = "000" + result.Count.ToString();
+            }
+
             if (result.Count < 100000 && result.Count >= 10000)
+            {
                 hit = "0000" + result.Count.ToString();
+            }
+
             if (result.Count < 10000 && result.Count >= 1000)
+            {
                 hit = "00000" + result.Count.ToString();
+            }
+
             if (result.Count < 1000 && result.Count >= 100)
+            {
                 hit = "000000" + result.Count.ToString();
+            }
+
             if (result.Count < 100 && result.Count >= 10)
+            {
                 hit = "0000000" + result.Count.ToString();
+            }
+
             if (result.Count < 10 && result.Count >= 1)
+            {
                 hit = "00000000" + result.Count.ToString();
+            }
+
             string outST = "";
             for (int i = 0; i < hit.Length; i++)
             {
@@ -492,9 +526,14 @@ namespace webCucbanquyen.Controllers
             ViewBag.TotalHitcounter = outST;
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
+            {
                 ViewBag.LanguageId = 2;
+            }
             else
+            {
                 ViewBag.LanguageId = 1;
+            }
+
             return PartialView();
         }
 
@@ -507,7 +546,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu2en").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -523,7 +562,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu2").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -544,7 +583,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu3en").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -560,7 +599,7 @@ namespace webCucbanquyen.Controllers
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu3").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -578,11 +617,16 @@ namespace webCucbanquyen.Controllers
             if (languagecode != null && languagecode.Value == "en")
             {
                 int? id = null;
-                ViewBag.Name = "PROMOTION OF THE STATE, THE PUBLIC";
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu4en").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
+                    Menu entity = _menuService.GetById(id.GetValueOrDefault());
+                    if (entity != null)
+                    {
+                        ViewBag.Name = entity.menuName;
+                    }
+
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 2).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -595,12 +639,18 @@ namespace webCucbanquyen.Controllers
             }
             else
             {
-                ViewBag.Name = "HIẾN TẶNG NHÀ NƯỚC, CÔNG CHÚNG";
+
                 int? id = null;
                 try { id = Convert.ToInt16(_configService.GetByName("RightMenu4").configBody); } catch { }
                 if (id.HasValue)
                 {
-                    var result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
+                    Menu entity = _menuService.GetById(id.GetValueOrDefault());
+                    if (entity != null)
+                    {
+                        ViewBag.Name = entity.menuName;
+                    }
+
+                    IOrderedEnumerable<Menu> result = _menuService.GetAll().Where(x => x.parentId == id && x.isTrash == false && x.languageId == 1).OrderBy(x => x.sortOrder);
                     ViewBag.stclass = stClass;
                     return PartialView(result);
                 }
@@ -620,8 +670,10 @@ namespace webCucbanquyen.Controllers
             }
             if (Cookie == null)
             {
-                Cookie = new HttpCookie("languagecode");
-                Cookie.Value = code;
+                Cookie = new HttpCookie("languagecode")
+                {
+                    Value = code
+                };
                 HttpContext.Response.Cookies.Add(Cookie);
                 Cookie.Expires = DateTime.Now.AddDays(5);
                 if (code == "vn")
@@ -635,8 +687,10 @@ namespace webCucbanquyen.Controllers
                 {
                     return Json(false, JsonRequestBehavior.AllowGet);
                 }
-                Cookie = new HttpCookie("languagecode");
-                Cookie.Value = code;
+                Cookie = new HttpCookie("languagecode")
+                {
+                    Value = code
+                };
                 HttpContext.Response.Cookies.Add(Cookie);
                 Cookie.Expires = DateTime.Now.AddDays(5);
 
@@ -648,9 +702,14 @@ namespace webCucbanquyen.Controllers
         {
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
+            {
                 ViewBag.LanguageId = 2;
+            }
             else
+            {
                 ViewBag.LanguageId = 1;
+            }
+
             return PartialView();
         }
 
@@ -658,9 +717,14 @@ namespace webCucbanquyen.Controllers
         {
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
+            {
                 ViewBag.LanguageId = 2;
+            }
             else
+            {
                 ViewBag.LanguageId = 1;
+            }
+
             return PartialView();
         }
 
@@ -668,9 +732,14 @@ namespace webCucbanquyen.Controllers
         {
             languagecode = HttpContext.Request.Cookies["languagecode"];
             if (languagecode != null && languagecode.Value == "en")
+            {
                 ViewBag.LanguageId = 2;
+            }
             else
+            {
                 ViewBag.LanguageId = 1;
+            }
+
             return PartialView();
         }
     }
