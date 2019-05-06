@@ -12,6 +12,9 @@
                     <h1 class="title">@detail.postName</h1>
                 </div>
                 <i class="fa fa-file-pdf-o" style="position:absolute; top:13px; right:25px; color:#de0707; font-size:20px;"></i>
+                <div class="post-time">
+                    @Html.Raw(ViewBag.PostTime)
+                </div>
                 <div class="box-body">
                     @Html.Raw(detail.postBody)
                 </div>

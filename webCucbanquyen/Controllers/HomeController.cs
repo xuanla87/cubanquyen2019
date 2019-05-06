@@ -471,51 +471,52 @@ namespace webCucbanquyen.Controllers
         {
             HitCounterEntity db = new HitCounterEntity();
             List<Visiter> result = db.Visiters.ToList();
-
+            long _total = result.Count;
+            _total += 31538606;
             string hit = "000000000";
-            if (result.Count < 1000000000 && result.Count >= 100000000)
+            if (_total < 1000000000 && _total >= 100000000)
             {
-                hit = result.Count.ToString();
+                hit = _total.ToString();
             }
 
-            if (result.Count < 100000000 && result.Count >= 10000000)
+            if (_total < 100000000 && _total >= 10000000)
             {
-                hit = "0" + result.Count.ToString();
+                hit = "0" + _total.ToString();
             }
 
-            if (result.Count < 10000000 && result.Count >= 1000000)
+            if (_total < 10000000 && _total >= 1000000)
             {
-                hit = "00" + result.Count.ToString();
+                hit = "00" + _total.ToString();
             }
 
-            if (result.Count < 1000000 && result.Count >= 100000)
+            if (_total < 1000000 && _total >= 100000)
             {
-                hit = "000" + result.Count.ToString();
+                hit = "000" + _total.ToString();
             }
 
-            if (result.Count < 100000 && result.Count >= 10000)
+            if (_total < 100000 && _total >= 10000)
             {
-                hit = "0000" + result.Count.ToString();
+                hit = "0000" + _total.ToString();
             }
 
-            if (result.Count < 10000 && result.Count >= 1000)
+            if (_total < 10000 && _total >= 1000)
             {
-                hit = "00000" + result.Count.ToString();
+                hit = "00000" + _total.ToString();
             }
 
-            if (result.Count < 1000 && result.Count >= 100)
+            if (_total < 1000 && _total >= 100)
             {
-                hit = "000000" + result.Count.ToString();
+                hit = "000000" + _total.ToString();
             }
 
-            if (result.Count < 100 && result.Count >= 10)
+            if (_total < 100 && _total >= 10)
             {
-                hit = "0000000" + result.Count.ToString();
+                hit = "0000000" + _total.ToString();
             }
 
-            if (result.Count < 10 && result.Count >= 1)
+            if (_total < 10 && _total >= 1)
             {
-                hit = "00000000" + result.Count.ToString();
+                hit = "00000000" + _total.ToString();
             }
 
             string outST = "";
@@ -740,6 +741,37 @@ namespace webCucbanquyen.Controllers
                 ViewBag.LanguageId = 1;
             }
 
+            return PartialView();
+        }
+
+        public ActionResult viewTime()
+        {
+            DateTime _time = DateTime.Now;
+            string _stTime = null;
+            languagecode = HttpContext.Request.Cookies["languagecode"];
+            if (languagecode != null && languagecode.Value == "en")
+            {
+                _stTime = _time.DayOfWeek.ToString();
+            }
+            else
+            {
+                if (_time.DayOfWeek == DayOfWeek.Monday)
+                    _stTime = "Thứ 2";
+                else if (_time.DayOfWeek == DayOfWeek.Tuesday)
+                    _stTime = "Thứ 3";
+                else if (_time.DayOfWeek == DayOfWeek.Wednesday)
+                    _stTime = "Thứ 4";
+                else if (_time.DayOfWeek == DayOfWeek.Thursday)
+                    _stTime = "Thứ 5";
+                else if (_time.DayOfWeek == DayOfWeek.Friday)
+                    _stTime = "Thứ 6";
+                else if (_time.DayOfWeek == DayOfWeek.Saturday)
+                    _stTime = "Thứ 7";
+                else if (_time.DayOfWeek == DayOfWeek.Sunday)
+                    _stTime = "Chủ nhật";
+            }
+            _stTime += ", " + _time.ToString("dd/MM/yyyy");
+            ViewBag.TimePage = _stTime;
             return PartialView();
         }
     }
