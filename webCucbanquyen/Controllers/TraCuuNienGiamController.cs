@@ -45,17 +45,17 @@ namespace webCucbanquyen.Controllers
             }
             if (!string.IsNullOrEmpty(name))
             {
-                model = model.Where(x => x.tacpham.ToLower().Contains(name.ToLower().Trim()));
+                model = model.Where(x => ConvertFont.TCVN3ToUnicode(x.tacpham).ToLower().Contains(name.ToLower().Trim()));
                 model2 = model2.Where(x => x.Title.ToLower().Contains(name.ToLower().Trim()));
             }
             if (!string.IsNullOrEmpty(number))
             {
-                model = model.Where(x => x.sochungnhan.ToLower().Contains(number.ToLower().Trim()));
-                model2 = model2.Where(x => x.GlobalCode.ToLower().Contains(number.ToLower().Trim()));
+                model = model.Where(x => ConvertFont.TCVN3ToUnicode(x.sochungnhan).ToLower().Contains(number.ToLower().Trim()));
+                model2 = model2.Where(x => ConvertFont.TCVN3ToUnicode(x.GlobalCode).ToLower().Contains(number.ToLower().Trim()));
             }
             if (!string.IsNullOrEmpty(nameOwner))
             {
-                model = model.Where(x => x.tendaidien.ToLower().Contains(nameOwner.ToLower().Trim()));
+                model = model.Where(x => ConvertFont.TCVN3ToUnicode(x.tendaidien).ToLower().Contains(nameOwner.ToLower().Trim()));
                 model2 = (from q in model2
                           join p in _db2.Owners on q.Id equals p.WorkId
                           where p.FullName.ToLower().Contains(nameOwner.ToLower().Trim())
@@ -63,7 +63,7 @@ namespace webCucbanquyen.Controllers
             }
             if (!string.IsNullOrEmpty(nameAuthor))
             {
-                model = model.Where(x => x.IDquoctich_tg.ToLower().Contains(nameAuthor.ToLower().Trim()));
+                model = model.Where(x => ConvertFont.TCVN3ToUnicode(x.IDquoctich_tg).ToLower().Contains(nameAuthor.ToLower().Trim()));
                 model2 = (from q in model2
                           join p in _db2.Owners on q.Id equals p.WorkId
                           where p.FullName.ToLower().Contains(nameAuthor.ToLower().Trim())
@@ -76,10 +76,10 @@ namespace webCucbanquyen.Controllers
             {
                 IdTacPham = 0,
                 NgayDangKy = x.ngaycap,
-                SoChungNhan = x.sochungnhan,
-                TenDaiDien = x.daidien,
-                TenTacGia = x.IDquoctich_tg,
-                TenTacPham = x.tacpham
+                SoChungNhan = ConvertFont.TCVN3ToUnicode(x.sochungnhan),
+                TenDaiDien = ConvertFont.TCVN3ToUnicode(x.daidien),
+                TenTacGia = ConvertFont.TCVN3ToUnicode(x.IDquoctich_tg),
+                TenTacPham = ConvertFont.TCVN3ToUnicode(x.tacpham)
             });
             var result2 = query2.Select(x => new TTNiemGiam
             {
@@ -94,7 +94,7 @@ namespace webCucbanquyen.Controllers
             try { resultTotal.AddRange(result2); }
             catch (Exception) { }
             try { resultTotal.AddRange(result); }
-            catch (Exception) { }
+            catch (Exception ex) { }
             resultTotal = resultTotal.OrderByDescending(x => x.NgayDangKy).ToList();
             int totalPage = 0;
             int? pageSize = 20;
@@ -155,4 +155,5 @@ namespace webCucbanquyen.Controllers
             return View(QueryTotal);
         }
     }
+
 }
